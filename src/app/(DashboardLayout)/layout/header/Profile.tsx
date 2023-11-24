@@ -12,14 +12,25 @@ import {
 } from "@mui/material";
 
 import { IconListCheck, IconLogout, IconMail, IconUser } from "@tabler/icons-react";
+import AuthService from "@/utils/AuthServices";
+import { useRouter } from "next/navigation";
 
 const Profile:React.FC = () => {
+
+  const router = useRouter();
   const [anchorEl2, setAnchorEl2] = useState(null);
+
   const handleClick2 = (event: any) => {
     setAnchorEl2(event.currentTarget);
   };
+
   const handleClose2 = () => {
     setAnchorEl2(null);
+  };
+
+  const handleLogout = () => {
+    AuthService.logout();
+    router.push('/login');
   };
 
   return (
@@ -46,9 +57,6 @@ const Profile:React.FC = () => {
           }}
         />
       </IconButton>
-      {/* ------------------------------------------- */}
-      {/* Message Dropdown */}
-      {/* ------------------------------------------- */}
       <Menu
         id="msgs-menu"
         anchorEl={anchorEl2}
@@ -63,7 +71,7 @@ const Profile:React.FC = () => {
           },
         }}
       >
-        <MenuItem>
+        <MenuItem onClick={handleLogout}>
           <ListItemIcon>
             <IconLogout width={20} />
           </ListItemIcon>
